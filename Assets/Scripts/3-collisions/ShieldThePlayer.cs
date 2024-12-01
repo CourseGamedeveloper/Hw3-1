@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public class ShieldThePlayer : MonoBehaviour {
-    [Tooltip("The number of seconds that the shield remains active")] [SerializeField] float duration;
+    [Tooltip("The number of seconds that the shield remains active")]
+    [SerializeField] float duration;
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
@@ -27,29 +28,4 @@ public class ShieldThePlayer : MonoBehaviour {
         Debug.Log("Shield gone!");
         destroyComponent.enabled = true;
     }
-
-    /* OLD CODE --- using coroutines
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Player") {
-            Debug.Log("Shield triggered by player");
-            var destroyComponent = other.GetComponent<DestroyOnTrigger2D>();
-            if (destroyComponent) {
-                destroyComponent.StartCoroutine(ShieldTemporarily(destroyComponent)); // Coroutine
-                Destroy(gameObject); // Destroy the shield itself to prevent double-use
-            }
-        } else {
-            Debug.Log("Shield triggered by "+other.name);
-        }
-    }
-
-    private IEnumerator ShieldTemporarily(DestroyOnTrigger2D destroyComponent) {
-        destroyComponent.enabled = false;
-        for (float i = duration; i > 0; i--) {
-            Debug.Log("Shield: " + i + " seconds remaining!");
-            yield return new WaitForSeconds(1);
-        }
-        Debug.Log("Shield gone!");
-        destroyComponent.enabled = true;
-    }
-    */
 }
