@@ -5,7 +5,7 @@ using UnityEngine;
 /**
  * This component instantiates a given prefab at random time intervals and random bias from its object position.
  */
-public class TimedSpawnerRandom: MonoBehaviour {
+public class TimedSpawnerRandom : MonoBehaviour {
     [SerializeField] Mover prefabToSpawn;
     [SerializeField] Vector3 velocityOfSpawnedObject;
     [Tooltip("Minimum time between consecutive spawns, in seconds")] [SerializeField] float minTimeBetweenSpawns = 0.2f;
@@ -14,14 +14,14 @@ public class TimedSpawnerRandom: MonoBehaviour {
     [SerializeField] Transform parentOfAllInstances;
 
     void Start() {
-         SpawnRoutine();
+        SpawnRoutine();
     }
 
     async void SpawnRoutine() {
         while (true) {
             float timeBetweenSpawnsInSeconds = Random.Range(minTimeBetweenSpawns, maxTimeBetweenSpawns);
-            await Awaitable.WaitForSecondsAsync(timeBetweenSpawnsInSeconds);       // co-routines
-            if (!this) break;   // might be destroyed when moving to a new scene
+            await Awaitable.WaitForSecondsAsync(timeBetweenSpawnsInSeconds);
+            if (!this) break;
             Vector3 positionOfSpawnedObject = new Vector3(
                 transform.position.x + Random.Range(-maxXDistance, +maxXDistance),
                 transform.position.y,
